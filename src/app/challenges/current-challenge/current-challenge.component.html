@@ -7,9 +7,7 @@
     </GridLayout>
   </ng-template>
 </ListView> -->
-<ActionBar title="Current Challenge" (loaded)="onLoadedActionBar()">
-  <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
-</ActionBar>
+<ns-action-bar title="Current Challenge"></ns-action-bar>
 <StackLayout>
   <Label class="title" text="the current challenge" horizontalAlignment="center"></Label>
   <Button text="Add a challenge" class="btn btn-primary" (tap)="onAddChallenge()"></Button>
