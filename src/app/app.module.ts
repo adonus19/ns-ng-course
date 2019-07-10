@@ -6,6 +6,7 @@ import { CurrentChallengeComponent } from "./challenges/current-challenge/curren
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular/side-drawer-directives";
 import { ChallengeEditComponent } from './challenges/challenge-edit/challenge-edit.component';
 import { AuthComponent } from './auth/auth.component';
 import { TodayComponent } from './challenges/today/today.component';
@@ -21,7 +22,8 @@ import { ChallengeTabsComponent } from './challenges/challenge-tabs/challenge-ta
         AppComponent
     ],
     imports: [
-        NativeScriptModule, NativeScriptFormsModule, AppRoutingModule
+        NativeScriptModule, NativeScriptFormsModule, AppRoutingModule,
+        NativeScriptUISideDrawerModule
     ],
     declarations: [
         AppComponent,
