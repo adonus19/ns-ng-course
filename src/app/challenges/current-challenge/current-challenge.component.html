@@ -7,7 +7,16 @@
     </GridLayout>
   </ng-template>
 </ListView> -->
-<ns-action-bar title="Current Challenge"></ns-action-bar>
+<ns-action-bar title="Current Challenge" [showBackButton]="false">
+  <ActionItem ios.position="right" android.position="actionBar" nsRouterLink="/challenges/replace"
+    pageTransition="slideLeft">
+    <Label text="Replace"></Label>
+  </ActionItem>
+  <ActionItem ios.position="right" android.position="actionBar" nsRouterLink="/challenges/edit"
+    pageTransition="slideLeft">
+    <Label text="Edit"></Label>
+  </ActionItem>
+</ns-action-bar>
 <StackLayout>
   <Label class="title" text="the current challenge" horizontalAlignment="center"></Label>
   <Button text="Add a challenge" class="btn btn-primary" (tap)="onAddChallenge()"></Button>
