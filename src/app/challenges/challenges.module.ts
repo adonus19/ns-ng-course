@@ -14,8 +14,6 @@ import { SharedModule } from "../shared/ui/shared.module";
   ],
   imports: [NativeScriptCommonModule, ChallengesRoutingModule,
     SharedModule],
-  schemas: [
-    NO_ERRORS_SCHEMA
-  ]
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class ChallengesModule { }
