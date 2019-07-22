@@ -23,10 +23,11 @@
       <Label class="h1 text-center" text="Take a walk everyday"></Label>
       <Label class="body text-center" text="Walk for at least 20 minutes every day of the week"></Label>
       <GridLayout rows="auto,*,*,*,*,*,*" columns="*,*,*,*,*,*,*">
-        <Label class="text-center week-day-label" width="100%" *ngFor="let day of weekDays; let i = index" [text]="day" row="0"
-          [col]="i">
+        <Label class="text-center week-day-label" width="100%" *ngFor="let day of weekDays; let i = index" [text]="day"
+          row="0" [col]="i">
         </Label>
-        <FlexboxLayout class="day" *ngFor="let day of days; let i = index" [row]="getRow(i, day)" [col]="day.dayInWeek">
+        <FlexboxLayout class="day not-settable" *ngFor="let day of days; let i = index" [row]="getRow(i, day)"
+          [col]="day.dayInWeek" (tap)="onChangeStatus()">
           <Label [text]="day.dayInMonth">
           </Label>
         </FlexboxLayout>
