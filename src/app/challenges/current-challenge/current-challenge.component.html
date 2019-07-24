@@ -30,8 +30,9 @@
         <Label class="text-center week-day-label" width="100%" *ngFor="let day of weekDays; let i = index" [text]="day"
           row="0" [col]="i">
         </Label>
-        <FlexboxLayout class="day not-settable" *ngFor="let day of currentChallenge.days; let i = index"
-          [row]="getRow(i, day)" [col]="day.dayInWeek" (tap)="onChangeStatus()">
+        <FlexboxLayout class="day" *ngFor="let day of currentChallenge.days; let i = index" [row]="getRow(i, day)"
+          [col]="day.dayInWeek" (tap)="onChangeStatus(day)"
+          [ngClass]="{'not-settable': !getIsSettable(day.dayInMonth), completed: day.status === 1, failed: day.status === 2}">
           <Label [text]="day.dayInMonth">
           </Label>
         </FlexboxLayout>

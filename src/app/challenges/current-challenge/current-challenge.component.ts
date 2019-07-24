@@ -6,6 +6,7 @@ import { DayModalComponent } from "../day-modal/day-modal.component";
 import { UIService } from "~/app/shared/ui.service";
 import { ChallengeService } from "../challenge.service";
 import { Challenge } from "../challenge.model";
+import { Day, DayStatus } from "../day.model";
 
 @Component({
   selector: 'ns-current-challenge',
@@ -37,12 +38,18 @@ export class CurrentChallengeComponent implements OnInit, OnDestroy {
     // this.router.navigate(['/challenges/edit'], { transition: { name: 'slideLeft' } });
   }
 
-  onChangeStatus() {
+  onChangeStatus(day: Day) {
+    if (!this.getIsSettable(day.dayInMonth)) {
+      return;
+    }
     this.modalDialog.showModal(DayModalComponent, {
       fullscreen: true, viewContainerRef: this.uiService.getRootVCRef() ? this.uiService.getRootVCRef() : this.vcRef,
-      context: { date: new Date() }
-    }).then((action: string) => {
-      console.log(action);
+      context: { date: day.date, status: day.status }
+    }).then((status: DayStatus) => {
+      if (status === DayStatus.Open) {
+        return;
+      }
+      this.challengeService.updateDayStatus(day.dayInMonth, status);
     });
   }
 
@@ -54,5 +61,8 @@ export class CurrentChallengeComponent implements OnInit, OnDestroy {
     return startRow + weekRow + irregularRow;
   }
 
+  getIsSettable(dayInMonth: number) {
+    return dayInMonth <= new Date().getDate();
+  }
 
 }
