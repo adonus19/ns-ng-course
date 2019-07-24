@@ -36,11 +36,15 @@ export class ActionBarComponent implements OnInit {
   }
 
   onLoadedActionBar() {
-    if (isAndroid) {
+    if (isAndroid && !this.hasMenu) {
       const androidToolBar = this.page.actionBar.nativeView;
       const backButton = androidToolBar.getNavigationIcon();
+      let color = '#171717';
+      if (this.hasMenu) {
+        color = '#ffffff';
+      }
       if (backButton) {
-        backButton.setColorFilter(android.graphics.Color.parseColor('#171717'), (<any>android.graphics).PorterDuff.Mode.SRC_ATOP);
+        backButton.setColorFilter(android.graphics.Color.parseColor(color), (<any>android.graphics).PorterDuff.Mode.SRC_ATOP);
       }
     }
   }
