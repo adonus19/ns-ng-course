@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ChallengeService } from '../challenge.service';
-import { Day } from '../day.model';
 import { Subscription } from 'rxjs';
+import { ChallengeService } from '../challenge.service';
+import { Day, DayStatus } from '../day.model';
 
 @Component({
   selector: 'ns-today',
@@ -29,8 +29,8 @@ export class TodayComponent implements OnInit, OnDestroy {
     }
   }
 
-  onActionSelected(action: 'complete' | 'fail' | 'cancel') {
-    console.log(action);
+  onActionSelected(action: DayStatus) {
+    this.challengeService.updateDayStatus(this.currentDay.dayInMonth, action);
   }
 
 }
