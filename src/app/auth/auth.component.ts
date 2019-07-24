@@ -41,9 +41,10 @@ export class AuthComponent implements OnInit {
   onSubmit() {
     this.passwordEl.nativeElement.focus();
     this.passwordEl.nativeElement.dismissSoftInput();
-    if (!this.form.valid) {
-      return;
-    }
+    // skipping auth for now
+    // if (!this.form.valid) {
+    //   return;
+    // }
     const email = this.form.get('email').value;
     const password = this.form.get('password').value;
     this.form.reset();

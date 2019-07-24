@@ -1,8 +1,11 @@
-import { Component, ViewContainerRef, OnInit } from "@angular/core";
+import { Component, ViewContainerRef, OnInit, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
 import { DayModalComponent } from "../day-modal/day-modal.component";
 import { UIService } from "~/app/shared/ui.service";
+import { ChallengeService } from "../challenge.service";
+import { Challenge } from "../challenge.model";
 
 @Component({
   selector: 'ns-current-challenge',
@@ -10,17 +13,24 @@ import { UIService } from "~/app/shared/ui.service";
   styleUrls: ['./_current-challenge.component.scss'],
   moduleId: module.id
 })
-export class CurrentChallengeComponent implements OnInit {
+export class CurrentChallengeComponent implements OnInit, OnDestroy {
   weekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  days: { dayInMonth: number, dayInWeek: number }[] = [];
-  private currentMonth: number;
-  private currentYear: number;
+  currentChallenge: Challenge;
+  private curChallengeSub: Subscription;
 
   constructor(private router: RouterExtensions, private modalDialog: ModalDialogService,
-    private vcRef: ViewContainerRef, private uiService: UIService) { }
+    private vcRef: ViewContainerRef, private uiService: UIService, private challengeService: ChallengeService) { }
 
   ngOnInit() {
+    this.curChallengeSub = this.challengeService.currentChallenge.subscribe((challenge: Challenge) => {
+      this.currentChallenge = challenge;
+    });
+  }
 
+  ngOnDestroy() {
+    if (this.curChallengeSub) {
+      this.curChallengeSub.unsubscribe();
+    }
   }
 
   onAddChallenge() {
@@ -39,7 +49,7 @@ export class CurrentChallengeComponent implements OnInit {
   getRow(index: number, day: { dayInMonth: number, dayInWeek: number }) {
     const startRow = 1;
     const weekRow = Math.floor(index / 7);
-    const firstWeekdayOfMonth = new Date(this.currentYear, this.currentMonth, 1).getDay();
+    const firstWeekdayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay();
     const irregularRow = day.dayInWeek < firstWeekdayOfMonth ? 1 : 0;
     return startRow + weekRow + irregularRow;
   }

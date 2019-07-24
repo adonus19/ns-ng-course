@@ -18,20 +18,24 @@
   </ActionItem>
 </ns-action-bar>
 <ScrollView>
-  <StackLayout>
-    <FlexboxLayout class="page">
-      <Label class="h1 text-center" text="Take a walk everyday"></Label>
-      <Label class="body text-center" text="Walk for at least 20 minutes every day of the week"></Label>
-      <GridLayout rows="auto,*,*,*,*,*,*" columns="*,*,*,*,*,*,*">
+  <FlexboxLayout class="page">
+    <StackLayout *ngIf="!currentChallenge">
+      <Label text="No challenge found!"></Label>
+      <Button class="btn btn-primary" text="Create Challenge" [nsRouterLink]="['/challenges/edit']"></Button>
+    </StackLayout>
+    <StackLayout *ngIf="currentChallenge">
+      <Label class="h1 text-center" [text]="currentChallenge.title"></Label>
+      <Label class="body text-center" [text]="currentChallenge.description"></Label>
+      <GridLayout *ngIf="currentChallenge" rows="auto,*,*,*,*,*,*" columns="*,*,*,*,*,*,*">
         <Label class="text-center week-day-label" width="100%" *ngFor="let day of weekDays; let i = index" [text]="day"
           row="0" [col]="i">
         </Label>
-        <FlexboxLayout class="day not-settable" *ngFor="let day of days; let i = index" [row]="getRow(i, day)"
-          [col]="day.dayInWeek" (tap)="onChangeStatus()">
+        <FlexboxLayout class="day not-settable" *ngFor="let day of currentChallenge.days; let i = index"
+          [row]="getRow(i, day)" [col]="day.dayInWeek" (tap)="onChangeStatus()">
           <Label [text]="day.dayInMonth">
           </Label>
         </FlexboxLayout>
       </GridLayout>
-    </FlexboxLayout>
-  </StackLayout>
+    </StackLayout>
+  </FlexboxLayout>
 </ScrollView>

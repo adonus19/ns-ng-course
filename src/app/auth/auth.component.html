@@ -13,6 +13,9 @@
     <Label *ngIf="!passwordControlIsValid" text="Must be 6+ characters"></Label>
   </StackLayout>
   <Button class="btn btn-flat" [text]="isLogin ? 'Need an account?' : 'Already a member?'" (tap)="switch()"></Button>
-  <Button [text]="isLogin ? 'Login' : 'Signup'" class="btn btn-primary btn-rounded-lg" (tap)="onSubmit()"
-    [isEnabled]="form.valid"></Button>
+
+  <!-- isEnabled is removed here just to skip "logging in" -->
+  <Button [text]="isLogin ? 'Login' : 'Signup'" class="btn btn-primary btn-rounded-lg" (tap)="onSubmit()"></Button>
+  <!-- <Button [text]="isLogin ? 'Login' : 'Signup'" class="btn btn-primary btn-rounded-lg" (tap)="onSubmit()"
+    [isEnabled]="form.valid"></Button> -->
 </StackLayout>
