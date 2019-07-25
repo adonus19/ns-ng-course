@@ -14,7 +14,7 @@ import { SharedModule } from "./shared/ui/shared.module";
 import { ChallengeActionsModule } from "./challenges/challenge-actions/challenge-actions.module";
 
 // Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
-// import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
 @NgModule({
     bootstrap: [
@@ -23,7 +23,7 @@ import { ChallengeActionsModule } from "./challenges/challenge-actions/challenge
     imports: [
         NativeScriptModule, NativeScriptFormsModule, AppRoutingModule,
         NativeScriptUISideDrawerModule, SharedModule, ChallengeActionsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule, NativeScriptHttpClientModule
     ],
     declarations: [
         AppComponent,

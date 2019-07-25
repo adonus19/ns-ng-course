@@ -13,7 +13,7 @@
     <Label ios:class="fa p-5" android:class="fa p-10" android:fonstSize="24" text="&#xf0fe;"></Label>
   </ActionItem>
   <ActionItem ios.position="right" android.position="actionBar" nsRouterLink="/challenges/edit"
-    pageTransition="slideLeft">
+    pageTransition="slideLeft" *ngIf="currentChallenge">
     <Label ios:class="fa p-5" android:class="fa p-10" android:fonstSize="24" text="&#xf044;"></Label>
   </ActionItem>
 </ns-action-bar>
