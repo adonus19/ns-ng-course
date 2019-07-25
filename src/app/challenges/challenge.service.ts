@@ -67,6 +67,9 @@ export class ChallengeService {
 
   private saveToServer(challenge: Challenge) {
     this.authService.user.pipe(switchMap(currentUser => {
+      if (!currentUser || !currentUser.isAuth) {
+        return;
+      }
       return this.http.put(`https://udemy-ng-http-bfb93.firebaseio.com/challenge.json?auth=${currentUser.token}`, challenge)
     }))
       .subscribe(res => {

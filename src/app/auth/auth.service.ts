@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RouterExtensions } from 'nativescript-angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { alert } from 'tns-core-modules/ui/dialogs';
@@ -21,7 +22,7 @@ interface AuthResponseData {
 export class AuthService {
   private _user = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: RouterExtensions) { }
 
   get user() {
     return this._user.asObservable();
@@ -53,6 +54,11 @@ export class AuthService {
             this.handleLogin(email, res.idToken, res.localId, parseInt(res.expiresIn));
           }
         }));
+  }
+
+  logout() {
+    this._user.next(null);
+    this.router.navigate(['/'], { clearHistory: true });
   }
 
   private handleLogin(email: string, token: string, userId: string, expiresIn: number) {
