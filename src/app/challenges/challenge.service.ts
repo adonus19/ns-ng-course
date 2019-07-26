@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { take, tap, switchMap } from 'rxjs/operators';
 
 import { Challenge } from './challenge.model';
@@ -18,15 +18,19 @@ export class ChallengeService {
   }
 
   fetchCurrentChalenge() {
-    return this.authService.user.pipe(switchMap(currentUser => {
-      return this.http.get<{
-        title: string;
-        description: string;
-        month: number;
-        year: number;
-        _days: Day[];
-      }>(`https://udemy-ng-http-bfb93.firebaseio.com//challenge.json?auth=${currentUser.token}`)
-    }),
+    return this.authService.user.pipe(take(1),
+      switchMap(currentUser => {
+        if (!currentUser || !currentUser.isAuth) {
+          return of(null);
+        }
+        return this.http.get<{
+          title: string;
+          description: string;
+          month: number;
+          year: number;
+          _days: Day[];
+        }>(`https://udemy-ng-http-bfb93.firebaseio.com//challenge.json?auth=${currentUser.token}`)
+      }),
       tap(resData => {
         if (resData) {
           const loadedChallenge = new Challenge(resData.title, resData.description, resData.year, resData.month, resData._days);
@@ -66,12 +70,13 @@ export class ChallengeService {
   }
 
   private saveToServer(challenge: Challenge) {
-    this.authService.user.pipe(switchMap(currentUser => {
-      if (!currentUser || !currentUser.isAuth) {
-        return;
-      }
-      return this.http.put(`https://udemy-ng-http-bfb93.firebaseio.com/challenge.json?auth=${currentUser.token}`, challenge)
-    }))
+    this.authService.user.pipe(take(1),
+      switchMap(currentUser => {
+        if (!currentUser || !currentUser.isAuth) {
+          return of(null);
+        }
+        return this.http.put(`https://udemy-ng-http-bfb93.firebaseio.com/challenge.json?auth=${currentUser.token}`, challenge)
+      }))
       .subscribe(res => {
         console.log(res);
       });
