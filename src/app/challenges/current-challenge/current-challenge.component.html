@@ -23,8 +23,8 @@
       <Label text="No challenge found!"></Label>
       <Button class="btn btn-primary" text="Create Challenge" [nsRouterLink]="['/challenges/edit']"></Button>
     </StackLayout>
-    <StackLayout *ngIf="currentChallenge">
-      <Label class="h1 text-center" [text]="currentChallenge.title"></Label>
+    <StackLayout *ngIf="currentChallenge" marginBottom="10" marginTop="10">
+      <Label class="h1 text-center" [text]="currentChallenge.title" width="100%"></Label>
       <Label class="body text-center" [text]="currentChallenge.description"></Label>
       <GridLayout *ngIf="currentChallenge" rows="auto,*,*,*,*,*,*" columns="*,*,*,*,*,*,*">
         <Label class="text-center week-day-label" width="100%" *ngFor="let day of weekDays; let i = index" [text]="day"
