@@ -7,7 +7,7 @@ import { alert } from 'tns-core-modules/ui/dialogs';
 import { setString, getString, hasKey, remove } from 'tns-core-modules/application-settings';
 import { User } from './user.model';
 
-const FIREBASE_API_KEY = 'AIzaSyD0PS53CO7OBhZbzz8EfPMVBvGfDrVHfZs';
+const FIREBASE_API_KEY = '';
 
 interface AuthResponseData {
   kind: string;
