@@ -19,7 +19,6 @@ export class ChallengeTabsComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.challengeService.fetchCurrentChalenge().subscribe(res => {
-      console.log('Got it!', res);
       this.isLoading = false;
       this.loadTabRoutes();
     }, err => {
